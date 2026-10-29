@@ -1,0 +1,154 @@
+/* Estilos globais. O Tailwind é injetado automaticamente pelo módulo @nuxtjs/tailwindcss. */
+
+:root {
+  --washi: #f4e8cf;
+  --shu: #d9002f;
+  --ai: #14213d;
+  --ouro: #e0a419;
+}
+
+html {
+  background: #070a14;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background: #0a0e1a;
+  color: #e9eefc;
+  font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+  line-height: 1.75;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ouro);
+  outline-offset: 3px;
+}
+
+/* Ondas Seigaiha deslizando devagar sobre o papel washi */
+.fundo-ondas {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(34, 228, 255, 0.07), transparent 55%),
+    linear-gradient(rgba(34, 228, 255, 0.035) 1px, transparent 1px) 0 0 / 100% 4px,
+    #0a0e1a;
+}
+.fundo-ondas::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  width: calc(100% + 60px);
+  height: calc(100% + 60px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.1;
+  background-size: 60px 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20' viewBox='0 0 40 20'%3E%3Cg fill='none' stroke='%2322e4ff' stroke-width='.6'%3E%3Cpath d='M0 10a10 10 0 0 1 20 0z'/%3E%3Cpath d='M4 10a6 6 0 0 1 12 0M8 10a2 2 0 0 1 4 0' fill='none'/%3E%3Cpath d='M20 10a10 10 0 0 1 20 0z'/%3E%3Cpath d='M24 10a6 6 0 0 1 12 0M28 10a2 2 0 0 1 4 0' fill='none'/%3E%3Cpath d='M-20 20a20 20 0 0 1 40 0z'/%3E%3Cpath d='M-14 20a14 14 0 0 1 28 0M-8 20a8 8 0 0 1 16 0' fill='none'/%3E%3Cpath d='M0 20a20 20 0 0 1 40 0z'/%3E%3Cpath d='M6 20a14 14 0 0 1 28 0M12 20a8 8 0 0 1 16 0' fill='none'/%3E%3Cpath d='M20 20a20 20 0 0 1 40 0z'/%3E%3Cpath d='M26 20a14 14 0 0 1 28 0M32 20a8 8 0 0 1 16 0' fill='none'/%3E%3C/g%3E%3C/svg%3E");
+  animation: ondas 24s linear infinite;
+}
+@keyframes ondas {
+  from { transform: translateX(0); }
+  to { transform: translateX(60px); }
+}
+
+/* Marca-texto dourado atrás do nome */
+.destaque-nome {
+  background: linear-gradient(transparent 68%, rgba(255, 31, 75, 0.45) 68%) no-repeat left / 100% 100%;
+}
+
+.sol-shu {
+  background: radial-gradient(circle at 32% 28%, rgba(240, 20, 60, 0.88), rgba(217, 0, 47, 0.5) 70%);
+  box-shadow: inset -12px -16px 34px rgba(110, 0, 25, 0.28), 0 18px 38px -14px rgba(217, 0, 47, 0.5);
+}
+
+.foto-moldura {
+  box-shadow: 0 0 0 0.5rem #0e1426, 0 0 0 calc(0.5rem + 3px) #22e4ff, 0 0 38px rgba(34, 228, 255, 0.4);
+}
+
+.vinheta {
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(5, 4, 3, 0.75) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fundo-ondas::before { animation: none; }
+}
+
+/* ---------- Splash do samurai + lanternas ---------- */
+.splash-bola {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 9999px;
+  background: #bc002d;
+  will-change: transform, width, height;
+}
+.splash-bola::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: var(--sol-mix, 0);
+  background: radial-gradient(circle at 32% 28%, rgba(240, 20, 60, 0.88), rgba(217, 0, 47, 0.5) 70%);
+  box-shadow: 0 0 60px 8px rgba(255, 31, 75, 0.45);
+}
+.lanterna-balanco {
+  animation: balanco 5.5s ease-in-out infinite alternate;
+  transform-origin: 50% 0;
+}
+@keyframes balanco {
+  from { transform: rotate(-3.2deg); }
+  to { transform: rotate(3.2deg); }
+}
+.lanterna-brilho {
+  animation: pulsa 3.4s ease-in-out infinite alternate;
+}
+@keyframes pulsa {
+  from { opacity: 0.75; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lanterna-balanco, .lanterna-brilho { animation: none; }
+}
+
+/* ---------- Celular/tablet: tela inicial (Hero) centralizada ----------
+   Só vale abaixo de 1024px (breakpoint `lg`, onde o layout vira 2 colunas).
+   No PC nada muda. */
+@media (max-width: 1023px) {
+  #inicio {
+    justify-items: center;
+    text-align: center;
+  }
+  #inicio > div {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  #inicio .h-role {
+    margin-inline: auto;
+    border-left: 0;
+    border-top: 3px solid var(--shu);
+    padding: 0.75rem 0 0;
+  }
+  #inicio nav {
+    width: 100%;
+    max-width: 30rem;
+  }
+  #inicio nav a {
+    text-align: left;
+  }
+}
